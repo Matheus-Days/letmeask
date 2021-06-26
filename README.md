@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+<img src="https://letmeask-bc5d7.web.app/static/media/logo.a88331cb.svg">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Letmeask is a _simple_ to use and _fast_ :zap: app that helps you manage your :red_circle:live's questions.**
 
-## Available Scripts
+You can try it yourself [here](https://letmeask-bc5d7.web.app/).
 
-In the project directory, you can run:
+## :speech_balloon: How _Letmeask_ can help you:
 
-### `yarn start`
+:heavy_plus_sign: Create a new room using only your Google authentication.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+:clipboard: Easly copy your room's code and share with your audience.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+:heavy_check_mark: Mark down questions you've already answered.
 
-### `yarn test`
+:bookmark_tabs: Highlight questions you find important.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+:thumbsup: Sort them by number of likes, latest and newest.
 
-### `yarn build`
+### :bust_in_silhouette: Your viewers can:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+:eyes: See all questions made even if they're not logged in.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+:thumbsup: Like questions they find relevant and want to see answered if they log in.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+:clock10: They too can sort questions by number of likes, latest and newest.
 
-### `yarn eject`
+## :computer: Technologies used:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The main technology behind this app are __ReactJs__ and __Firebase__. For coding purposes I used __Typescript__ and for styling __SCSS__.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Other Javascript modules used:
+- Classnames
+- Firebase
+- React Router Dom
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## :no_entry: Disclaimer :no_entry:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This application's design, image assets and idea are not originally mine. The original authors can be found [here](https://rocketseat.com.br/).
 
-## Learn More
+The original authors made the majority of the code and its assets publicly avaliable as part of a hands-on crash course in ReactJs.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+However, the original code had some space for improvements so I added some features and made some patches to it. My main contributions were:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- "No new questions" warning added to the admin view of the room.
+- Navigation and routing improvements: it now redirects commom users to the commom room and room authors to the admin room; wrong url paths now lead to a 404 page; top page logo now sends user to main page.
+- Like button and counter improvements: disable button for users not logged in; show likes counter on questions displayed on the admin room.
+- Admin's Highlight and Answered buttons now have a toggle behaviour.
+- Both room author and users may sort the questions by their number of likes, by newest and by latest.

@@ -92,7 +92,7 @@ export function AdminRoom() {
     <div id="page-room">
       <header>
         <div className="content">
-          <img src={logoImg} alt="Letmeask" />
+          <img src={logoImg} alt="Letmeask" onClick={() => history.push("/")} />
           <div>
             <RoomCode code={roomId} />
             <Button onClick={handleEndRoom} isOutlined>
