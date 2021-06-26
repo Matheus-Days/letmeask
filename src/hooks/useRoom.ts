@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import { database } from "../services/firebase";
 import { useAuth } from "./useAuth";
 
-type QuestionType = {
+export type QuestionType = {
   id: string;
   author: {
     name: string;
     avatar: string;
   };
   content: string;
+  createdAt: number;
   isAnswered: boolean;
   isHighlighted: boolean;
   likeCount: number;
@@ -24,6 +25,7 @@ type FireBaseQuestions = Record<
       avatar: string;
     };
     content: string;
+    createdAt: number;
     isAnswered: boolean;
     isHighlighted: boolean;
     likes: Record<
@@ -45,13 +47,15 @@ export function useRoom(roomId: string) {
 
     roomRef.on("value", (room) => {
       const databaseRoom = room.val();
-      const fireBaseQuestions: FireBaseQuestions = databaseRoom.questions ?? {};
+      const fireBaseQuestions: FireBaseQuestions =
+        databaseRoom?.questions ?? {};
 
       const parsedQuestions = Object.entries(fireBaseQuestions).map(
         ([key, value]) => {
           return {
             id: key,
             content: value.content,
+            createdAt: value.createdAt,
             author: value.author,
             isHighlighted: value.isHighlighted,
             isAnswered: value.isAnswered,
@@ -63,7 +67,7 @@ export function useRoom(roomId: string) {
         }
       );
 
-      setTitle(databaseRoom.title);
+      setTitle(databaseRoom?.title);
       setQuestions(parsedQuestions);
     });
 

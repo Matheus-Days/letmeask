@@ -64,6 +64,7 @@
         align-items: flex-end;
         color: #737380;
         gap: 8px;
+        margin-bottom: 8px;
 
         &.liked {
           color: #835afd;
@@ -76,6 +77,15 @@
 
       &:hover {
         filter: brightness(0.7);
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+        filter: none;
+      }
+
+      &.default-cursor {
+        cursor: default;
       }
     }
   }

@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import cx from "classnames";
 
 import logoImg from "../assets/images/logo.svg";
 
@@ -11,6 +12,8 @@ import { Question } from "../components/Question";
 
 import "../styles/room.scss";
 import { useRoom } from "../hooks/useRoom";
+import { useEffect } from "react";
+import { sortQuestions } from "../services/sortQuestions";
 
 type RoomParams = {
   id: string;
@@ -20,10 +23,24 @@ export function Room() {
   const { user } = useAuth();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState("");
+  const [questionsOrder, setQuestionsOrder] = useState("oldest");
 
   const roomId = params.id;
+  const history = useHistory();
 
   const { questions, title } = useRoom(roomId);
+
+  useEffect(() => {
+    const roomRef = database.ref(`rooms/${roomId}`);
+
+    roomRef.once("value", (room) => {
+      const authorId = room.val()?.authorId;
+
+      if (authorId === user?.id) {
+        history.replace(`/admin/rooms/${roomId}`);
+      }
+    });
+  }, [history, roomId, user?.id]);
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -44,6 +61,7 @@ export function Room() {
       },
       isHighlighted: false,
       isAnswered: false,
+      createdAt: new Date().getTime(),
     };
 
     await database.ref(`rooms/${roomId}/questions`).push(question);
@@ -77,8 +95,19 @@ export function Room() {
 
       <main className="content">
         <div className="room-title">
-          <h1>Sala {title}</h1>
+          <h1>Sala: "{title}"</h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+          <div className="order-select">
+            <label>Ordenar por:</label>
+            <select
+              value={questionsOrder}
+              onChange={(event) => setQuestionsOrder(event.target.value)}
+            >
+              <option value="newest">Mais recentes</option>
+              <option value="oldest">Mais antigas</option>
+              <option value="likes">Mais likes</option>
+            </select>
+          </div>
         </div>
 
         <form onSubmit={handleSendQuestion}>
@@ -105,7 +134,7 @@ export function Room() {
           </div>
         </form>
         <div className="question-list">
-          {questions.map((question) => {
+          {sortQuestions(questionsOrder, questions).map((question) => {
             return (
               <Question
                 key={question.id}
@@ -116,7 +145,11 @@ export function Room() {
               >
                 {!question.isAnswered && (
                   <button
-                    className={`like-button ${question.likedId ? "liked" : ""}`}
+                    disabled={user?.id === undefined}
+                    className={cx("like-button", {
+                      liked: question.likedId !== undefined,
+                      disabled: user?.id === undefined,
+                    })}
                     type="button"
                     aria-label="Marcar como gostei"
                     onClick={() =>

@@ -10,6 +10,7 @@ type QuestionProps = {
     avatar: string;
   };
   children?: ReactNode;
+  createdAt?: number;
   isAnswered?: boolean;
   isHighlighted?: boolean;
 };
