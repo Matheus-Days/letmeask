@@ -46,3 +46,4 @@ However, the original code had some space for improvements so I added some featu
 - Like button and counter improvements: disable button for users not logged in; show likes counter on questions displayed on the admin room.
 - Admin's Highlight and Answered buttons now have a toggle behaviour.
 - Both room author and users may sort the questions by their number of likes, by newest and by latest.
+- Authentication improvements: enabled log in inside commom room; created log out button.
