@@ -23,7 +23,7 @@ type RoomParams = {
 };
 
 export function AdminRoom() {
-  const { user } = useAuth();
+  const { user, signOutWithGoogle } = useAuth();
   const history = useHistory();
   const params = useParams<RoomParams>();
   const [questionsOrder, setQuestionsOrder] = useState("oldest");
@@ -98,6 +98,17 @@ export function AdminRoom() {
             <Button onClick={handleEndRoom} isOutlined>
               Encerrar sala
             </Button>
+            {user?.id && (
+              <button
+                id="logout-button"
+                onClick={() => {
+                  signOutWithGoogle();
+                  document.location.reload();
+                }}
+              >
+                Encerrar sessão
+              </button>
+            )}
           </div>
         </div>
       </header>

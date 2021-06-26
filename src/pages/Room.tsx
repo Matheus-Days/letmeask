@@ -20,7 +20,7 @@ type RoomParams = {
 };
 
 export function Room() {
-  const { user, signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle, signOutWithGoogle } = useAuth();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState("");
   const [questionsOrder, setQuestionsOrder] = useState("oldest");
@@ -89,7 +89,20 @@ export function Room() {
       <header>
         <div className="content">
           <img src={logoImg} alt="Letmeask" onClick={() => history.push("/")} />
-          <RoomCode code={roomId} />
+          <div>
+            <RoomCode code={roomId} />
+            {user?.id && (
+              <button
+                id="logout-button"
+                onClick={() => {
+                  signOutWithGoogle();
+                  document.location.reload();
+                }}
+              >
+                Trocar de usuário
+              </button>
+            )}
+          </div>
         </div>
       </header>
 

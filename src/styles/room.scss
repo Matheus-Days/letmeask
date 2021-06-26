@@ -10,6 +10,16 @@
       justify-content: space-between;
       align-items: center;
 
+      #logout-button {
+        background: transparent;
+        border: 0;
+        color: #835afd;
+        text-decoration: underline;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
       > img {
         max-height: 45px;
         cursor: pointer;
